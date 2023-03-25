@@ -12,7 +12,6 @@ namespace AlarmApp.Models
 		public string Id { get; set; }
 
 		public string Name { get; set; }
-
 		public DateTimeOffset TimeOffset { get; set; }
 
 		[Ignored]
@@ -28,7 +27,7 @@ namespace AlarmApp.Models
 			get => FrequencyOffset.LocalDateTime.TimeOfDay;
             set => FrequencyOffset = GetDateTimeOffsetFromTimeSpan(value);
 		}
-
+		[Ignored]
 		public string UserFriendlyFrequency { get => GetFrequencyAsReadableString(Frequency); }
 
 		public DateTimeOffset DurationOffset { get; set; }
@@ -45,7 +44,10 @@ namespace AlarmApp.Models
 		public TimeSpan EndTime { get => Time.Add(Duration); }
 		public bool IsActive { get; set; }
 		public DaysOfWeek Days { get; set; }
+
+		[Ignored]
 		public bool OccursToday { get => Days.Equals(DateTime.Now.DayOfWeek); }
+		
 		public bool IsVibrateOn { get; set; }
 		public string Tone { get; set; }
 
@@ -93,7 +95,6 @@ namespace AlarmApp.Models
 
 			return stringBuilder.ToString();
 		}
-
 
 		/// <summary>
 		/// Gets a TimeSpan from the given number and unit of time

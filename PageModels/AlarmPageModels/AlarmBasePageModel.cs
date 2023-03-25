@@ -22,7 +22,7 @@ namespace AlarmApp.PageModels
         public DaysOfWeek Days { get; set; }
         public bool IsVibrateOn { get; set; }
 
-        public AlarmTone AlarmTone { get; set; }
+        public AlarmTone AlarmTone { get; set; }        
 
         // Validation
         public bool HasDayBeenSelected { get; set; } = true;
@@ -63,7 +63,7 @@ namespace AlarmApp.PageModels
         /// <summary>
         /// Validates the fields to see if the data is valid
         /// </summary>
-        /// <returns><c>true</c>true, if fields have been validated, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c>, if fields have been validated, <c>false</c> otherwise.</returns>
         protected virtual bool ValidateFields()
         {
             bool validation = true;

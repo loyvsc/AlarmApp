@@ -34,7 +34,7 @@ namespace AlarmApp.Services
         /// </summary>
         /// <param name="alarm">Alarm to add</param>
         public void AddAlarm(Alarm alarm)
-        {
+        {            
             Realm.Write(() => Realm.Add(alarm));
         }
 
@@ -69,7 +69,6 @@ namespace AlarmApp.Services
         /// </summary>
         public void DeleteAllAlarms()
         {
-            //remove all from android
             AlarmSetter.DeleteAllAlarms(Realm.All<Alarm>().ToList());
             Realm.Write(() => Realm.RemoveAll<Alarm>());
         }

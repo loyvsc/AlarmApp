@@ -22,24 +22,27 @@ namespace AlarmApp
             /*
 			 * TabbedPage page 
 			 */
-            FreshTabbedFONavigationContainer tabbedNavigation = new FreshTabbedFONavigationContainer("Alarm App")
-            {
-                BackgroundColor = (Color)Resources["PrimaryColor"]
-            };
+            //FreshTabbedFONavigationContainer tabbedNavigation = new FreshTabbedFONavigationContainer("Alarm App")
+            //{
+            //    BackgroundColor = (Color)Resources["PrimaryColor"]
+            //};
 
-            tabbedNavigation.AddTab<AlarmListPageModel>("Today's Alarms", null, AlarmListType.Today);
-            tabbedNavigation.AddTab<AlarmListPageModel>("All Alarms", null, AlarmListType.All);
-            MainPage = tabbedNavigation;
+            //tabbedNavigation.AddTab<AlarmListPageModel>("Today's Alarms", null, AlarmListType.Today);
+            //tabbedNavigation.AddTab<AlarmListPageModel>("All Alarms", null, AlarmListType.All);
+            //MainPage = tabbedNavigation;
+
             /*
 			 * Single page
 			 */
 
-            //var page = FreshPageModelResolver.ResolvePageModel<AlarmListPageModel>();
-            //var nav = new FreshNavigationContainer(page);
-            //nav.BackgroundColor = (Color)Resources["PrimaryColor"];
-            //page.Title = "My Alarms";
+            Page page = FreshPageModelResolver.ResolvePageModel<AlarmListPageModel>();
+            page.Title = "My Alarms";
+            FreshNavigationContainer nav = new FreshNavigationContainer(page)
+            {
+                BackgroundColor = (Color)Resources["PrimaryColor"]
+            };
 
-            //MainPage = nav;
+            MainPage = nav;
 
 
             //testing

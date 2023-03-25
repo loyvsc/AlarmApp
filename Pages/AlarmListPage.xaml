@@ -38,16 +38,16 @@
                         </local:AlarmListCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <!--				<ListView.GroupHeaderTemplate>
-					<DataTemplate>
-						<ViewCell Height="60">
-							<ViewCell.View>
-								<Label Text="{Binding Title}" Margin="20, 0, 0, 0" VerticalOptions="Center" TextColor="White" FontSize="20"/>
-							</ViewCell.View>
-						</ViewCell>
-					</DataTemplate>
-				</ListView.GroupHeaderTemplate>
--->
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="60">
+                            <ViewCell.View>
+                                <Label Text="{Binding Title}" Margin="20, 0, 0, 0" VerticalOptions="Center" TextColor="White" FontSize="20"/>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                
             </ListView>
             <Label Text="No alarms!" VerticalOptions="Center" HorizontalOptions="Center" InputTransparent="true">
                 <Label.Triggers>

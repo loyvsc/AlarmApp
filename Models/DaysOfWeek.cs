@@ -55,7 +55,7 @@ namespace AlarmApp.Models
 			if (obj is DayOfWeek)
 			{
 				//cast enum to int (sunday = 0, Saturday = 6)
-				var dayOfWeek = (int)obj;
+				int dayOfWeek = (int)obj;
 				if(dayOfWeek == 0)
 				{
 					return Sunday;
