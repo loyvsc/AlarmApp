@@ -68,7 +68,7 @@ namespace AlarmApp.Services
         /// Deletes all the alarms
         /// </summary>
         public void DeleteAllAlarms()
-        {
+        {            
             AlarmSetter.DeleteAllAlarms(Realm.All<Alarm>().ToList());
             Realm.Write(() => Realm.RemoveAll<Alarm>());
         }

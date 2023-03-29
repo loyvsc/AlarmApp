@@ -36,7 +36,11 @@
             <Style TargetType="Label" ApplyToDerivedTypes="True">
                 <Setter Property="TextColor" Value="#FFFFFF"/>
             </Style>
-
+            
+            <Style x:Key="LargeHeading" TargetType="Label">
+                <Setter Property="FontSize" Value="24"/>
+            </Style>
+            
             <Style x:Key="LargeCenteredHeading" TargetType="Label">
                 <Setter Property="FontSize" Value="24"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>

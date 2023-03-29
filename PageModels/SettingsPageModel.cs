@@ -49,7 +49,6 @@ namespace AlarmApp.PageModels
             }
         }
 
-
         private async Task OnCellTapped(string parameter)
         {
             switch (parameter)

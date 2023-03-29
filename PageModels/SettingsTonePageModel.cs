@@ -15,7 +15,7 @@ namespace AlarmApp.PageModels
     public class SettingsTonePageModel : FreshBasePageModel
     {
         private bool _isIndividualAlarmTone = false;
-        private readonly IFileLocator _fileLocator = DependencyService.Get<IFileLocator>();
+        private IFileLocator _fileLocator = Xamarin.Forms.DependencyService.Get<IFileLocator>();
         private readonly IPlaySoundService _soundService = DependencyService.Get<IPlaySoundService>();
 
         private Uri _newToneUri;
@@ -96,7 +96,7 @@ namespace AlarmApp.PageModels
         /// Handles setting the current tone value
         /// </summary>
         /// <param name="value">Value.</param>
-        private async void SetSelectedTone(AlarmTone value)
+        private void SetSelectedTone(AlarmTone value)
         {
             bool isSelectedNull = value.Equals(default(AlarmTone)) || value == null;
             if (isSelectedNull)
@@ -109,11 +109,18 @@ namespace AlarmApp.PageModels
             bool wasSelectCustomToneSelected = value.Equals(Defaults.Tones[0]);
             if (wasSelectCustomToneSelected)
             {
-                _fileLocator.OpenFileLocator();
-                _fileLocator.FileChosen += ToneFileChosen;
+                try
+                {
+                    _fileLocator.FileChosen += ToneFileChosen;
+                    _fileLocator.OpenFileLocator();
+                }
+                catch (Exception ex)
+                {
+                    App.Current.MainPage.DisplayAlert(ex.Message, ex.Message, "cancel");
+                }
+
                 return;
             }
-
             //_selectedTone = value;
             PlayTone(value);
             AddConfirmToolbarItem();
@@ -128,7 +135,7 @@ namespace AlarmApp.PageModels
             {
                 CurrentPage.ToolbarItems.Add(new ToolbarItem
                 {
-                    Text = "Save",
+                    Text = "Сохранить",
                     Icon = "save",
                     Command = ToneSavedCommand
                 });
@@ -162,7 +169,7 @@ namespace AlarmApp.PageModels
         /// <param name="toneName">The name to be given to the alarm tone</param>
         private void OnNewToneNameSet(string toneName)
         {
-            var newTone = new AlarmTone
+            AlarmTone newTone = new AlarmTone
             {
                 Name = toneName,
                 Path = _newToneUri.LocalPath,

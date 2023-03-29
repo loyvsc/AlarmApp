@@ -17,36 +17,16 @@ namespace AlarmApp
 
             AlarmStorageService.InitSettings();
             GetAllAlarmTones();
-
             SetUpIoC();
-            /*
-			 * TabbedPage page 
-			 */
-            //FreshTabbedFONavigationContainer tabbedNavigation = new FreshTabbedFONavigationContainer("Alarm App")
-            //{
-            //    BackgroundColor = (Color)Resources["PrimaryColor"]
-            //};
-
-            //tabbedNavigation.AddTab<AlarmListPageModel>("Today's Alarms", null, AlarmListType.Today);
-            //tabbedNavigation.AddTab<AlarmListPageModel>("All Alarms", null, AlarmListType.All);
-            //MainPage = tabbedNavigation;
-
-            /*
-			 * Single page
-			 */
 
             Page page = FreshPageModelResolver.ResolvePageModel<AlarmListPageModel>();
-            page.Title = "My Alarms";
-            FreshNavigationContainer nav = new FreshNavigationContainer(page)
+            page.Title = "Будильник";
+            FreshNavigationContainer mainPage = new FreshNavigationContainer(page)
             {
                 BackgroundColor = (Color)Resources["PrimaryColor"]
             };
 
-            MainPage = nav;
-
-
-            //testing
-            //MainPage = new TestPage();
+            MainPage = mainPage;
         }
 
         private void GetAllAlarmTones()

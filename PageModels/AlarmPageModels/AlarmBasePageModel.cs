@@ -22,8 +22,8 @@ namespace AlarmApp.PageModels
         public DaysOfWeek Days { get; set; }
         public bool IsVibrateOn { get; set; }
 
-        public AlarmTone AlarmTone { get; set; }        
-
+        public AlarmTone AlarmTone { get; set; }
+        
         // Validation
         public bool HasDayBeenSelected { get; set; } = true;
         public bool IsFrequencyNumberValid { get; set; } = true;
