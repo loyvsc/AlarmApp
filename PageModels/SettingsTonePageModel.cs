@@ -5,6 +5,7 @@ using FreshMvvm;
 using PropertyChanged;
 using Rg.Plugins.Popup.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,13 +16,12 @@ namespace AlarmApp.PageModels
     public class SettingsTonePageModel : FreshBasePageModel
     {
         private bool _isIndividualAlarmTone = false;
-        private IFileLocator _fileLocator = Xamarin.Forms.DependencyService.Get<IFileLocator>();
-        private readonly IPlaySoundService _soundService = DependencyService.Get<IPlaySoundService>();
+        private IFileLocator _fileLocator = DependencyService.Get<IFileLocator>();
+        private IPlaySoundService _soundService = DependencyService.Get<IPlaySoundService>();
 
-        private Uri _newToneUri;
         private AlarmToneNamingPopupPage _namingPopupPage;
-
-        private readonly IAlarmStorageService _alarmStorage;
+        private Uri _newToneUri;
+        private IAlarmStorageService _alarmStorage;
         private AlarmTone _selectedTone;
 
         public Settings Settings { get; set; }
@@ -33,7 +33,7 @@ namespace AlarmApp.PageModels
             {
                 if (value != null)
                 {
-                    SetSelectedTone(value);
+                    SetSelectedTone(value);                    
                 }
             }
         }
@@ -51,6 +51,7 @@ namespace AlarmApp.PageModels
                 {
                     OnToneSelected(selectedTone);
                 }
+
                 await CoreMethods.PopPageModel(selectedTone, false, true);
                 tcs.SetResult(true);
             });
@@ -78,7 +79,6 @@ namespace AlarmApp.PageModels
             Settings = _alarmStorage.GetSettings();
             AllAlarmTones = new ObservableCollection<AlarmTone>(_alarmStorage.GetAllTones());
 
-            // if we are setting an individual alarm's tone
             if (initData is Alarm newAlarm)
             {
                 _isIndividualAlarmTone = true;
@@ -92,36 +92,46 @@ namespace AlarmApp.PageModels
             _soundService.PlayAudio(tone);
         }
 
+        private void ToneFileChosen(Uri uri)
+        {
+            _newToneUri = uri;
+            _namingPopupPage = new AlarmToneNamingPopupPage();
+            _namingPopupPage.ToneNameSet += OnNewToneNameSet;
+            FileNeedsNamed = true;
+        }
+
+        private void OnNewToneNameSet(string toneName)
+        {
+            AlarmTone newTone = new AlarmTone
+            {
+                Name = toneName,
+                Path = _newToneUri.LocalPath,
+                IsCustomTone = true
+            };
+
+            AllAlarmTones.Add(newTone);
+            _alarmStorage.AddTone(newTone);
+
+            _namingPopupPage.ToneNameSet -= OnNewToneNameSet;
+            _fileLocator.FileChosen -= ToneFileChosen;
+            SetSelectedTone(newTone);
+            FileNeedsNamed = false;
+        }
+
         /// <summary>
         /// Handles setting the current tone value
         /// </summary>
-        /// <param name="value">Value.</param>
+        /// <param name="value">Value</param>
         private void SetSelectedTone(AlarmTone value)
         {
-            bool isSelectedNull = value.Equals(default(AlarmTone)) || value == null;
-            if (isSelectedNull)
+            bool isSelectedToneCustom = value.Equals(Defaults.Tones[0]);
+            if (isSelectedToneCustom)
             {
-                _selectedTone = null;
+                _fileLocator.FileChosen += ToneFileChosen;
+                _fileLocator.OpenFileLocator();                
                 return;
             }
 
-            //if the user selected the 'choose custom tone' option, display file explorer
-            bool wasSelectCustomToneSelected = value.Equals(Defaults.Tones[0]);
-            if (wasSelectCustomToneSelected)
-            {
-                try
-                {
-                    _fileLocator.FileChosen += ToneFileChosen;
-                    _fileLocator.OpenFileLocator();
-                }
-                catch (Exception ex)
-                {
-                    App.Current.MainPage.DisplayAlert(ex.Message, ex.Message, "cancel");
-                }
-
-                return;
-            }
-            //_selectedTone = value;
             PlayTone(value);
             AddConfirmToolbarItem();
 
@@ -149,40 +159,6 @@ namespace AlarmApp.PageModels
         private void OnToneSelected(AlarmTone alarmTone)
         {
             _alarmStorage.Realm.Write(() => _alarmStorage.GetSettings().AlarmTone = alarmTone);
-        }
-
-        /// <summary>
-        /// When the user selects an audio file from the file system
-        /// </summary>
-        /// <param name="uri">URI of the chosen audio file</param>
-        private void ToneFileChosen(Uri uri)
-        {
-            _newToneUri = uri;
-            _namingPopupPage = new AlarmToneNamingPopupPage();
-            _namingPopupPage.ToneNameSet += OnNewToneNameSet;
-            FileNeedsNamed = true;
-        }
-
-        /// <summary>
-        /// Action to be done when a newly added tone has its name set
-        /// </summary>
-        /// <param name="toneName">The name to be given to the alarm tone</param>
-        private void OnNewToneNameSet(string toneName)
-        {
-            AlarmTone newTone = new AlarmTone
-            {
-                Name = toneName,
-                Path = _newToneUri.LocalPath,
-                IsCustomTone = true
-            };
-
-            AllAlarmTones.Add(newTone);
-            _alarmStorage.AddTone(newTone);
-
-            _namingPopupPage.ToneNameSet -= OnNewToneNameSet;
-            _fileLocator.FileChosen -= ToneFileChosen;
-            SetSelectedTone(newTone);
-            FileNeedsNamed = false;
         }
 
         /// <summary>

@@ -7,9 +7,7 @@ using Xamarin.Forms;
 namespace AlarmApp.Views
 {
     public partial class DaysOfWeekView : ContentView
-    {
-        private StringBuilder _sb;
-
+    {        
         private string[] days = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
 
         public DaysOfWeekView()
@@ -28,8 +26,8 @@ namespace AlarmApp.Views
             Alarm alarm = (Alarm)BindingContext;
             IsEnabled = alarm.IsActive;
 
-            var daysOfWeek = alarm.Days;
-            _sb = new StringBuilder();
+            DaysOfWeek daysOfWeek = alarm.Days;
+            StringBuilder _sb = new StringBuilder();
 
             bool isEveryDay = alarm.Days.AllDays.All(X => X == true);
 
@@ -53,13 +51,6 @@ namespace AlarmApp.Views
             }
 
             DaysLabel.Text = _sb.ToString();
-            //MondayLabel.IsVisible = daysOfWeek.Monday;
-            //TuesdayLabel.IsVisible = daysOfWeek.Tuesday;
-            //WednesdayLabel.IsVisible = daysOfWeek.Wednesday;
-            //ThursdayLabel.IsVisible = daysOfWeek.Thursday;
-            //FridayLabel.IsVisible = daysOfWeek.Friday;
-            //SaturdayLabel.IsVisible = daysOfWeek.Saturday;
-            //SundayLabel.IsVisible = daysOfWeek.Sunday;
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

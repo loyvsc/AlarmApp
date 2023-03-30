@@ -69,15 +69,11 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <Compile Include="Models\AlarmTone.cs" />
-    <Compile Include="Services\IFileLocator.cs" />
-    <Compile Include="Services\IPlaySoundService.cs" />
-    <EmbeddedResource Include="Popups\AlarmToneNamingPopupPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <Compile Include="Popups\AlarmToneNamingPopupPage.xaml.cs">
       <DependentUpon>AlarmToneNamingPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\IFileLocator.cs" />
+    <Compile Include="Services\IPlaySoundService.cs" />
     <EmbeddedResource Include="Views\ToneViewCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -201,7 +197,12 @@
     <None Include="packages.config" />
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Popups\AlarmToneNamingPopupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>

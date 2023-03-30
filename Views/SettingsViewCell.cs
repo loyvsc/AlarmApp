@@ -6,10 +6,7 @@ namespace AlarmApp.Views
 	public class SettingsViewCell : ViewCell
 	{
 		public static readonly BindableProperty CommandProperty =
-			BindableProperty.Create("Command",
-									typeof(ICommand),
-									typeof(SettingsViewCell),
-									null);
+			BindableProperty.Create("Command", typeof(ICommand), typeof(SettingsViewCell), null);
 
 		public ICommand Command
 		{

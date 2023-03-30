@@ -79,10 +79,10 @@ namespace AlarmApp.PageModels
 
         private async Task DoDeleteAlert()
         {
-            bool shouldDeleteAlarms = await CoreMethods.DisplayAlert("Are you sure?",
-                                           "You are about to delete all your alarms, " +
-                                           "this action is permanent and cannot be undone.",
-                                           "DELETE", "CANCEL");
+            bool shouldDeleteAlarms = await CoreMethods.DisplayAlert("Вы уверены?",
+                                           "Вы собираетесь удалить все свои будильники, " +
+                                           "это действие является перманентным и не может быть отменено.",
+                                           "УДАЛИТЬ", "ОТМЕНА");
 
             if (shouldDeleteAlarms)
             {

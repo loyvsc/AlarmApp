@@ -5,8 +5,8 @@
 			 xmlns:local="clr-namespace:AlarmApp.Views"
 			 xmlns:converters="clr-namespace:AlarmApp.Converters">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New alarm" Icon="list_add_alarm" Command="{Binding NewAlarmCommand}"/>
-        <ToolbarItem Text="Settings" Icon="list_settings" Command="{Binding SettingsCommand}"/>
+        <ToolbarItem Text="Добавить будильник" Icon="list_add_alarm" Command="{Binding NewAlarmCommand}"/>
+        <ToolbarItem Text="Настройки" Icon="list_settings" Command="{Binding SettingsCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -15,14 +15,9 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ListView BackgroundColor="Transparent" x:Name="listView" 
-					  ItemsSource="{Binding Alarms}" 
-					 HasUnevenRows="true"
-					  SelectedItem="{Binding SelectedAlarm}" 
-					  ItemSelected="Handle_ItemSelected" 
+            <ListView BackgroundColor="Transparent" x:Name="listView" ItemsSource="{Binding Alarms}" 
+					  HasUnevenRows="true" SelectedItem="{Binding SelectedAlarm}" ItemSelected="Handle_ItemSelected" 
 					  SeparatorColor="{StaticResource SeparatorColor}">
-                <!--IsGroupingEnabled="true"
-					  GroupDisplayBinding="{Binding Title}"-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <local:AlarmListCell>
@@ -33,7 +28,7 @@
                                 </OnPlatform>
                             </local:AlarmListCell.Height>
                             <local:AlarmListCell.ContextActions>
-                                <MenuItem Icon="delete.png" Text="Delete" Command="{Binding Source={x:Reference listView}, Path=BindingContext.DeleteAlarmCommand}" CommandParameter="{Binding .}" IsDestructive="true"/>
+                                <MenuItem Icon="delete.png" Text="Удалить" Command="{Binding Source={x:Reference listView}, Path=BindingContext.DeleteAlarmCommand}" CommandParameter="{Binding .}" IsDestructive="true"/>
                             </local:AlarmListCell.ContextActions>
                         </local:AlarmListCell>
                     </DataTemplate>
@@ -42,20 +37,20 @@
                     <DataTemplate>
                         <ViewCell Height="60">
                             <ViewCell.View>
-                                <Label Text="{Binding Title}" Margin="20, 0, 0, 0" VerticalOptions="Center" TextColor="White" FontSize="20"/>
+                                <Label Text="{Binding Title}" Margin="20, 0, 0, 0" VerticalOptions="Center"
+                                       TextColor="White" FontSize="20"/>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.GroupHeaderTemplate>
                 
             </ListView>
-            <Label Text="No alarms!" VerticalOptions="Center" HorizontalOptions="Center" InputTransparent="true">
+            <Label Text="Будильники отсутсвуют!" VerticalOptions="Center" HorizontalOptions="Center" InputTransparent="true">
                 <Label.Triggers>
-                    <!-- If we have 0 items, show the label -->
                     <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference listView}, Path=ItemsSource.Count}" Value="0">
                         <Setter Property="IsVisible" Value="true"/>
                     </DataTrigger>
-                    <!-- If we have items, hide the label -->
+                    
                     <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference listView}, Path=ItemsSource.Count, Converter={StaticResource CountToBoolConverter}}" Value="true">
                         <Setter Property="IsVisible" Value="false"/>
                     </DataTrigger>

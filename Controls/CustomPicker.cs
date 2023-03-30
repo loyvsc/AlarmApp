@@ -5,7 +5,8 @@ namespace AlarmApp.Controls
 {
 	public class CustomPicker : Picker
 	{
-		public static readonly BindableProperty HintProperty = BindableProperty.Create("Hint", typeof(string), typeof(CustomPicker), null);
+		public static readonly BindableProperty HintProperty
+			= BindableProperty.Create("Hint", typeof(string), typeof(CustomPicker), null);
 
 		public string Hint 
 		{ 
@@ -23,9 +24,8 @@ namespace AlarmApp.Controls
 
 		public event EventHandler IsValidChanged;
 
-		static void OnIsValidChanged(BindableObject bindable, object oldValue, object newValue)
+		private static void OnIsValidChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-            // Property changed implementation goes here
             CustomPicker picker = (CustomPicker)bindable;
 			picker.IsValidChanged?.Invoke(picker, null);
 		}

@@ -34,8 +34,8 @@ namespace AlarmApp.PageModels
                 return;
             }
 
-            var frequency = GetDurationOrFrequency(FrequencyNumber, FrequencyPeriod);
-            var duration = GetDurationOrFrequency(DurationNumber, DurationPeriod);
+            TimeSpan? frequency = GetDurationOrFrequency(FrequencyNumber, FrequencyPeriod);
+            TimeSpan? duration = GetDurationOrFrequency(DurationNumber, DurationPeriod);
 
             Alarm.IsActive = true;
             Alarm.Frequency = (TimeSpan)frequency;
@@ -58,15 +58,15 @@ namespace AlarmApp.PageModels
 
         protected override bool ValidateFields()
         {
-            bool iAnyDaySelected = true;
+            bool isAnyDaySelected = true;
             if (!DaysOfWeek.GetHasADayBeenSelected(Alarm.Days))
             {
                 HasDayBeenSelected = false;
-                iAnyDaySelected = false;
+                isAnyDaySelected = false;
             }
 
             bool isFieldsValidate = base.ValidateFields();
-            return isFieldsValidate & iAnyDaySelected;
+            return isFieldsValidate & isAnyDaySelected;
         }
 
         /// <summary>

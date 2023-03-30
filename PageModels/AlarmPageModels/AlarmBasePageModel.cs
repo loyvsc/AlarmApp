@@ -4,13 +4,14 @@ using FreshMvvm;
 using PropertyChanged;
 using System;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace AlarmApp.PageModels
 {
     [AddINotifyPropertyChangedInterface]
     public class AlarmBasePageModel : FreshBasePageModel
     {
-        protected IAlarmStorageService AlarmStorage { get; set; }
+        protected IAlarmStorageService AlarmStorage { get; set; }       
 
         public string Name { get; set; }
         public Alarm Alarm { get; set; }
@@ -70,7 +71,6 @@ namespace AlarmApp.PageModels
 
             if (FrequencyNumber <= 0)
             {
-                //Set which one to false
                 IsFrequencyNumberValid = false;
                 validation = false;
             }
@@ -91,7 +91,6 @@ namespace AlarmApp.PageModels
 
             if (DurationNumber <= 0)
             {
-                //Set which one to false
                 IsDurationNumberValid = false;
                 validation = false;
             }
@@ -122,9 +121,9 @@ namespace AlarmApp.PageModels
         {
             base.ReverseInit(returnedData);
 
-            if (returnedData is AlarmTone)
+            if (returnedData is AlarmTone returnedTone)
             {
-                Realms.Realm.GetInstance().Write(() => AlarmTone = (AlarmTone)returnedData);
+                Realms.Realm.GetInstance().Write(() => AlarmTone = returnedTone);
             }
         }
     }

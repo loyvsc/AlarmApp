@@ -5,7 +5,6 @@ using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Xamarin.Essentials;
 
 namespace AlarmApp.PageModels
 {
@@ -38,7 +37,7 @@ namespace AlarmApp.PageModels
                 await CoreMethods.PushPageModel<NewAlarmPageModel>(null, false, true);
                 tcs.SetResult(true);
             });
-        }
+        }        
 
         public ICommand DeleteAlarmCommand
         {
@@ -71,7 +70,7 @@ namespace AlarmApp.PageModels
             if (initData != null)
             {
                 _alarmListType = (AlarmListType)initData;
-            }                
+            }
         }
 
         protected override void ViewIsAppearing(object sender, EventArgs e)
@@ -106,7 +105,7 @@ namespace AlarmApp.PageModels
             else
             {
                 Alarms = new ObservableCollection<Alarm>(_alarmStorage.GetAllAlarms());
-            }        
+            }
         }
     }
 }

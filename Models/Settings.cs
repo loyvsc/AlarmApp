@@ -34,13 +34,13 @@ namespace AlarmApp.Models
             {
                 case ClockFormat.Hour24:
                     {
-                        stringBuilder.Append("24 Hour - ");
+                        stringBuilder.Append("24 Часа - ");
                         stringBuilder.Append(DateTime.Now.TimeOfDay.ToString(@"hh\:mm"));
                         break;
                     }
                 case ClockFormat.Hour12:
                     {
-                        stringBuilder.Append("12 Hour - ");
+                        stringBuilder.Append("12 Часов - ");
                         stringBuilder.Append(DateTime.Now.ToString("h:mm tt"));
                         break;
                     }

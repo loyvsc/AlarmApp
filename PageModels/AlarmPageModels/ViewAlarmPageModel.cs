@@ -9,6 +9,7 @@ namespace AlarmApp.PageModels
 {
     public class ViewAlarmPageModel : AlarmBasePageModel
     {
+        private readonly AlarmStorageService alarmStorage = new AlarmStorageService();
         public ICommand UpdateAlarmCommand
         {
             get => new FreshAwaitCommand((tcs) =>
@@ -44,7 +45,7 @@ namespace AlarmApp.PageModels
             DurationNumber = duration.Key;
             DurationPeriod = duration.Value;
             IsVibrateOn = Alarm.IsVibrateOn;
-
+            Name = Alarm.Name;
             Time = Alarm.Time;
             Days = new DaysOfWeek(Alarm.Days.AllDays);
         }
@@ -58,34 +59,38 @@ namespace AlarmApp.PageModels
             if (!ValidateFields())
             {
                 return;
-            }            
+            }
 
-            Realm realm = Realms.Realm.GetInstance();
-            TimeSpan frequency = Alarm.GetFrequencyDurationFromNumberAndPeriod(FrequencyNumber, FrequencyPeriod);            
+            TimeSpan frequency = Alarm.GetFrequencyDurationFromNumberAndPeriod(FrequencyNumber, FrequencyPeriod);
             TimeSpan duration = Alarm.GetFrequencyDurationFromNumberAndPeriod(DurationNumber, DurationPeriod);
+            Realm realm = Realms.Realm.GetInstance();
+
             realm.Write(() =>
             {
+                Alarm.Name = Name;
                 Alarm.Frequency = frequency;
                 Alarm.Time = Time;
                 Alarm.Days = Days;
                 Alarm.Duration = duration;
                 Alarm.Tone = AlarmTone.Id;
+                Alarm.IsVibrateOn = IsVibrateOn;
             });
+
             CoreMethods.PopPageModel(true, false, true);
         }
 
         protected override bool ValidateFields()
         {
-            var s = base.ValidateFields();
-            var validation = true;
+            bool isFieldsValidate = base.ValidateFields();
+            bool isAnyDaySelected = true;
 
             if (!DaysOfWeek.GetHasADayBeenSelected(Days))
             {
                 HasDayBeenSelected = false;
-                validation = false;
+                isAnyDaySelected = false;
             }
 
-            return s & validation;
+            return isFieldsValidate & isAnyDaySelected;
         }
     }
 }

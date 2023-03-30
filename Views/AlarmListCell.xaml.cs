@@ -37,7 +37,6 @@ namespace AlarmApp.Views
             var freq = _alarm.UserFriendlyFrequency;
             FrequencyLabel.Text = string.IsNullOrWhiteSpace(freq) ? null : $"Every {freq}";
             SetDynamicResources(_alarm.IsActive);
-            //IsActiveSwitch.IsToggled = _alarm.IsActive;
         }
 
         protected override void OnAppearing()
@@ -62,7 +61,6 @@ namespace AlarmApp.Views
         {
             if (state)
             {
-                //if is active
                 NameLabel.Style = (Style)App.Current.Resources["AlarmNameHeading"];
                 TimeLabel.Style = (Style)App.Current.Resources["AlarmTimeHeading"];
                 FrequencyLabel.Style = (Style)App.Current.Resources["AlarmExtrasHeading"];
@@ -70,7 +68,6 @@ namespace AlarmApp.Views
             }
             else
             {
-                //if is not active
                 NameLabel.Style = (Style)App.Current.Resources["AlarmNameDisabledHeading"];
                 TimeLabel.Style = (Style)App.Current.Resources["AlarmTimeDisabledHeading"];
                 FrequencyLabel.Style = (Style)App.Current.Resources["AlarmExtrasDisabledHeading"];

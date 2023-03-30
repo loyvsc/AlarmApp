@@ -1,6 +1,8 @@
-﻿using AlarmApp.PageModels;
+﻿using AlarmApp.Models;
+using AlarmApp.PageModels;
 using AlarmApp.Services;
 using FreshMvvm;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -31,7 +33,7 @@ namespace AlarmApp
 
         private void GetAllAlarmTones()
         {
-            var alarmList = _alarmStorage.GetAllTones();
+            List<AlarmTone> alarmList = _alarmStorage.GetAllTones();
 
             if (alarmList == null || alarmList.Count < Defaults.Tones.Count)
             {

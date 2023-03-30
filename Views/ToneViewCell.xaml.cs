@@ -12,7 +12,6 @@ namespace AlarmApp.Views
         private void Handle_BindingContextChanged(object sender, System.EventArgs e)
         {
             base.OnBindingContextChanged();
-
         }
     }
 }

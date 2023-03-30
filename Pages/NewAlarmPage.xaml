@@ -22,7 +22,7 @@
                 
                 <BoxView HeightRequest="1" Grid.ColumnSpan="2" BackgroundColor="{StaticResource PageSeparatorColor}" Margin="0, 20, 0, 0"/>
 
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" MinimumHeightRequest="55">
                     <Label Text="Вибрация" Style="{StaticResource LargeHeading}"/>
                     <Switch IsToggled="{Binding Alarm.IsVibrateOn}" HorizontalOptions="EndAndExpand"/>
                 </StackLayout>
@@ -59,7 +59,6 @@
                     </local:CustomPicker>
                 </Grid>
                 <BoxView HeightRequest="1" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="{StaticResource PageSeparatorColor}"  Margin="0, 0, 0, 20"/>
-
 
                 <Label Text="Поторить в" Style="{StaticResource LargeCenteredHeading}"/>
                 <ScrollView Orientation="Horizontal">

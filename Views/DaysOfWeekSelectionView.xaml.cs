@@ -22,6 +22,5 @@ namespace AlarmApp.Views
         {
             base.OnBindingContextChanged();
         }
-
     }
 }

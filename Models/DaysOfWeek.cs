@@ -36,10 +36,7 @@ namespace AlarmApp.Models
             Sunday = allDays[6];
         }
 
-        public DaysOfWeek(bool monday, bool tuesday, bool wednesday, bool thursday, bool friday, bool saturday, bool sunday) : this(new bool[] { monday, tuesday, wednesday, thursday, friday, saturday, sunday })
-        {
-        }
-
+        public DaysOfWeek(bool monday, bool tuesday, bool wednesday, bool thursday, bool friday, bool saturday, bool sunday) : this(new bool[] { monday, tuesday, wednesday, thursday, friday, saturday, sunday }) { }
 
         public static bool GetHasADayBeenSelected(DaysOfWeek days)
         {
@@ -54,7 +51,6 @@ namespace AlarmApp.Models
         {
             if (obj is DayOfWeek)
             {
-                //cast enum to int (sunday = 0, Saturday = 6)
                 int dayOfWeek = (int)obj;
                 if (dayOfWeek == 0)
                 {
